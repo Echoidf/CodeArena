@@ -1,32 +1,40 @@
 # CodeArena Golang 项目模板
 
 ```text
-├── api					      ## 接口层代码
-├── conf				      ## 配置层【使用echo swagger zap日志组件 viper】
+## 接口层代码
+├── api		
+## 配置层【使用echo swagger zap日志组件 viper】
+├── conf						
 │   ├── conf.go
 │   ├── config.toml
 │   ├── logger.go
 │   └── swagger.go
-├── consts				    ## 常量池
+## 常量池
+├── consts						
 │   └── setting.go
 ├── docs
 │   ├── docs.go
 │   ├── swagger.json
 │   └── swagger.yaml
-├── embeds           	## embeds文件嵌入
+## embeds文件嵌入
+├── embeds           	
 │   ├── code.go
-│   └── static			  ## 替换echo banner
+│   └── static		
+## 替换echo banner
 │       └── banner.txt
-
-├── main.go				  ## 入口文件
-├── middware			  ## 中间件
+## 入口文件
+├── main.go		
+## 中间件
+├── middware					
 │   ├── auth.go			## 检验中间件
 │   └── jwks.go			## 生成读取cert
-├── model				    ## 实体类
+## 实体类
+├── model						
 ├── server
 │   ├── adapter.go		## 数据库orm
-│   └── router.go		  ## echo 路由
-└── utils				      ## 工具类
+│   └── router.go			## echo 路由
+## 工具类
+└── utils						
     ├── file.go
     └── viper.go
 
