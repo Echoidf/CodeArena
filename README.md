@@ -32,7 +32,7 @@
 ├── model						
 ├── server
 │   ├── adapter.go		## 数据库orm
-│   └── router.go			## echo 路由
+│   └── router.go		## echo 路由
 ## 工具类
 └── utils						
     ├── file.go
