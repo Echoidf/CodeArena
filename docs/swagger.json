@@ -1,0 +1,17 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "CodeArena",
+        "contact": {
+            "name": "zuoql",
+            "url": "https://echoidf.github.io/mynotes/",
+            "email": "zql46@outlook.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "paths": {}
+}
