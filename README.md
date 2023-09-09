@@ -40,8 +40,3 @@
 
 ```
 
-- main分支：未集成orm框架
-
-- zorm分支：集成zorm框架，示例连接mysql
-
-  zorm文档：https://www.yuque.com/u27016943/nrgi00/zorm#TVZkr
