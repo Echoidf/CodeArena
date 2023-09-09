@@ -6,7 +6,6 @@ import (
 	"CodeArena/consts"
 	"CodeArena/embeds"
 	"CodeArena/middware"
-	"CodeArena/utils"
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -26,7 +25,7 @@ func Start() {
 	e.Use(middleware.LoggerWithConfig(
 		middleware.LoggerConfig{
 			Format: "time=${time_rfc3339}, remoteIp=${remote_ip}, method=${method}, uri=${uri}, status=${status}, latency=${latency_human}\n",
-			Output: utils.GetLogFile(),
+			Output: conf.GetLogFile(),
 		}))
 
 	// 健康检查
