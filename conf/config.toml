@@ -1,6 +1,7 @@
 [server]
     port=8000
     mode="dev"
+    logLevel="info"
 
 [mysql]
     host="127.0.0.1"

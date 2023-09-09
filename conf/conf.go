@@ -16,7 +16,8 @@ func init() {
 
 	// default config
 	V.SetDefault("server.port", 8080)
-	V.SetDefault("server.logPath", consts.DefaultLogPath)
+	V.SetDefault(consts.LogPath, consts.DefaultLogPath)
+	V.SetDefault(consts.LogLevel, consts.DebugLogLevel)
 
 	err := V.ReadInConfig()
 	if err != nil {

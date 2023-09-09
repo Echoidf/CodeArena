@@ -1,13 +1,16 @@
 package server
 
 import (
+	"CodeArena/api"
 	"CodeArena/conf"
 	"CodeArena/consts"
 	"CodeArena/embeds"
 	"CodeArena/middware"
+	"CodeArena/utils"
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"log"
 	"net/http"
 )
 
@@ -19,9 +22,15 @@ func Start() {
 	fmt.Println(string(embeds.ReadEmbeds(consts.BANNER)))
 
 	e.Use(middleware.Recover())
+	e.Use(middware.CORS)
+	e.Use(middleware.LoggerWithConfig(
+		middleware.LoggerConfig{
+			Format: "time=${time_rfc3339}, remoteIp=${remote_ip}, method=${method}, uri=${uri}, status=${status}, latency=${latency_human}\n",
+			Output: utils.GetLogFile(),
+		}))
 
 	// 健康检查
-	e.GET("/health", func(c echo.Context) error {
+	e.Any("/health", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, "ok")
 	})
 
@@ -29,7 +38,9 @@ func Start() {
 	conf.RegisterSwag(e)
 
 	r := e.Group("/api/v1")
+	r.POST("/register", api.Register)
+	r.POST("/login", api.Login)
 	r.Use(middware.Authorize)
 
-	e.Start(fmt.Sprintf(":%d", conf.V.GetInt("server.port")))
+	log.Fatal(e.Start(fmt.Sprintf(":%d", conf.V.GetInt("server.port"))))
 }

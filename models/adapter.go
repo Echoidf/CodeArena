@@ -1,4 +1,4 @@
-package server
+package models
 
 import (
 	"CodeArena/conf"
@@ -9,7 +9,7 @@ import (
 	"xorm.io/xorm/names"
 )
 
-var engine *xorm.Engine
+var Engine *xorm.Engine
 
 func init() {
 	dns := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8",
@@ -22,12 +22,12 @@ func init() {
 
 	var err error
 
-	engine, err = xorm.NewEngine("mysql", dns)
+	Engine, err = xorm.NewEngine("mysql", dns)
 
 	if err != nil {
 		zap.L().Error(fmt.Sprintf("数据库连接异常 %v", err))
 	}
 
-	engine.ShowSQL(true)
-	engine.SetMapper(names.GonicMapper{})
+	Engine.ShowSQL(true)
+	Engine.SetMapper(names.GonicMapper{})
 }

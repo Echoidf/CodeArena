@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "CodeArena/conf"
 	"CodeArena/server"
 )
 

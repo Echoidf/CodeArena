@@ -1,8 +1,11 @@
 package utils
 
 import (
+	"CodeArena/conf"
+	"CodeArena/consts"
 	"bufio"
-	"github.com/labstack/gommon/log"
+	"fmt"
+	"go.uber.org/zap"
 	"io"
 	"os"
 	"path/filepath"
@@ -76,7 +79,7 @@ func GetAbsPath(filename string) (string, error) {
 	// 获取项目根目录路径
 	rootDir, err := os.Getwd()
 	if err != nil {
-		log.Error("获取项目根目录失败：%v", err.Error())
+		zap.L().Error(fmt.Sprintf("获取项目根目录失败：%v", err.Error()))
 	}
 
 	// 构造文件的绝对路径
@@ -84,4 +87,13 @@ func GetAbsPath(filename string) (string, error) {
 	absPath = filepath.Clean(absPath)
 
 	return absPath, nil
+}
+
+func GetLogFile() (logFile *os.File) {
+	logPath := conf.V.GetString(consts.LogPath)
+	if NotExistFile(logPath) {
+		CreateFile(logPath)
+	}
+	logFile, _ = os.OpenFile(logPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	return
 }

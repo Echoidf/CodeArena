@@ -1,4 +1,4 @@
-package middware
+package models
 
 import (
 	"CodeArena/utils"
