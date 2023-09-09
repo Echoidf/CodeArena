@@ -23,7 +23,7 @@ func AddUser(user *User) (affected int64, err error) {
 	}
 
 	if user.Id == 0 {
-		user.Id = utils.NextIdBySnowFlake()
+		user.Id = utils.NextId().(int64)
 	}
 
 	affected, err = Engine.InsertOne(user)

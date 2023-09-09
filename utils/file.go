@@ -1,8 +1,6 @@
 package utils
 
 import (
-	"CodeArena/conf"
-	"CodeArena/consts"
 	"bufio"
 	"fmt"
 	"go.uber.org/zap"
@@ -87,13 +85,4 @@ func GetAbsPath(filename string) (string, error) {
 	absPath = filepath.Clean(absPath)
 
 	return absPath, nil
-}
-
-func GetLogFile() (logFile *os.File) {
-	logPath := conf.V.GetString(consts.LogPath)
-	if NotExistFile(logPath) {
-		CreateFile(logPath)
-	}
-	logFile, _ = os.OpenFile(logPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
-	return
 }
