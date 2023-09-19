@@ -19,7 +19,7 @@ git push origin $the_other_branch
 #切换到另一个本地分支
 git checkout $the_other_branch
 #更新代码
-git cherry-pick --strategy=ours $commit_hash
+git cherry-pick -X theirs $commit_hash
 git push origin $the_other_branch
 
 git checkout $cur_branch
