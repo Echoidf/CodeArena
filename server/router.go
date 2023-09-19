@@ -39,6 +39,8 @@ func Start() {
 	r := e.Group("/api/v1")
 	r.POST("/register", api.Register)
 	r.POST("/login", api.Login)
+
+	// 以下接口需要token认证
 	r.Use(middware.Authorize)
 
 	log.Fatal(e.Start(fmt.Sprintf(":%d", conf.V.GetInt("server.port"))))
