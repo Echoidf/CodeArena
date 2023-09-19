@@ -13,11 +13,12 @@ fi
 
 #提交代码到远程对应分支
 git push origin $cur_branch
-#提交代码到远程另一个分支
-git push origin $the_other_branch
+
+commit_hash=$(git log -n 1 --pretty=format:"%H")
 
 #切换到另一个本地分支
 git checkout $the_other_branch
+
 #更新代码
 git cherry-pick -X theirs $commit_hash
 git push origin $the_other_branch
