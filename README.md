@@ -38,5 +38,3 @@
     ├── file.go
     └── viper.go
 
-```
-
