@@ -23,7 +23,7 @@ git checkout $the_other_branch
 echo "====== 当前分支:" $the_other_branch "======"
 #更新代码
 git cherry-pick -X theirs $commit_hash
-echo $cur_branch" 代码提交中..."
+echo $the_other_branch" 代码提交中..."
 git push origin $the_other_branch
 
 git checkout $cur_branch
