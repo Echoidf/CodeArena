@@ -3,7 +3,7 @@ package common
 type SysError struct {
 	Code    int
 	Message string
-	Err     error
+	Err     string
 }
 
 func (e *SysError) Error() string {
@@ -16,6 +16,6 @@ var (
 )
 
 func (e *SysError) WithError(err error) *SysError {
-	e.Err = err
+	e.Err = err.Error()
 	return e
 }

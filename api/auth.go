@@ -1,6 +1,7 @@
 package api
 
 import (
+	"CodeArena/common"
 	"CodeArena/consts"
 	"CodeArena/models"
 	"github.com/labstack/echo/v4"
@@ -31,7 +32,7 @@ func Login(c echo.Context) (err error) {
 	fc, ok := authActionMap[authForm.LoginType]
 	if !ok {
 		zap.L().Error("loginType does not match")
-		return c.JSON(http.StatusBadRequest, consts.InvalidInputError)
+		return c.JSON(http.StatusBadRequest, common.InvalidInputError)
 	}
 
 	// 登录校验具体逻辑执行
