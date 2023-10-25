@@ -26,6 +26,10 @@ func AddUser(user *User) (affected int64, err error) {
 		user.Id = utils.NextId().(int64)
 	}
 
+	if user.CreatedAt.IsZero() {
+		user.CreatedAt = time.Now()
+	}
+
 	affected, err = Engine.InsertOne(user)
 	if err != nil {
 		zap.L().Error("insert user failed", zap.Error(err))

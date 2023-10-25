@@ -12,6 +12,7 @@ import (
 type AuthForm struct {
 	Username  string           `json:"username,omitempty"`
 	Password  string           `json:"password,omitempty"`
+	Captcha   string           `json:"captcha,omitempty"`
 	Phone     string           `json:"phone,omitempty"`
 	PhoneCode string           `json:"phoneCode,omitempty"`
 	LoginType consts.LoginType `json:"loginType"`
@@ -46,7 +47,7 @@ func Login(c echo.Context) (err error) {
 	res, err := models.GenerateToken(user)
 
 	if err != nil {
-		zap.L().Error("generated toke failed", zap.Error(err))
+		zap.L().Error("generated token failed", zap.Error(err))
 		return err
 	}
 

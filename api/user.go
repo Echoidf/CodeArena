@@ -8,7 +8,6 @@ import (
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 	"net/http"
-	"time"
 )
 
 func Register(c echo.Context) (err error) {
@@ -19,10 +18,6 @@ func Register(c echo.Context) (err error) {
 
 	user.Salt = utils.RandomString(6)
 	user.Password = utils.GenMd5(user.Salt, user.Password)
-
-	if user.CreatedAt.IsZero() {
-		user.CreatedAt = time.Now()
-	}
 
 	affected, err := models.AddUser(user)
 	if err != nil {
