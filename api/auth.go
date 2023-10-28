@@ -10,12 +10,15 @@ import (
 )
 
 type AuthForm struct {
-	Username  string           `json:"username,omitempty"`
-	Password  string           `json:"password,omitempty"`
-	Captcha   string           `json:"captcha,omitempty"`
-	Phone     string           `json:"phone,omitempty"`
-	PhoneCode string           `json:"phoneCode,omitempty"`
-	LoginType consts.LoginType `json:"loginType"`
+	Username        string           `json:"username,omitempty"`
+	Password        string           `json:"password,omitempty"`
+	Captcha         string           `json:"captcha,omitempty"`
+	Phone           string           `json:"phone,omitempty"`
+	PhoneCode       string           `json:"phoneCode,omitempty"`
+	MiniProGramCode string           `json:"miniProGramCode,omitempty"`
+	AppId           string           `json:"appId,omitempty"`
+	Secret          string           `json:"secret,omitempty"`
+	LoginType       consts.LoginType `json:"loginType"`
 }
 
 var authActionMap map[consts.LoginType]func(authForm *AuthForm) (user *models.User, err error)

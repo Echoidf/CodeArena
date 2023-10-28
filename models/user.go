@@ -14,6 +14,8 @@ type User struct {
 	Email     string    `xorm:"varchar(100)" json:"email,omitempty"`
 	CreatedAt time.Time `xorm:"datetime" json:"createdAt,omitempty"`
 	Phone     string    `xorm:"char(15)" json:"phone,omitempty"`
+	Avatar    string    `xorm:"varchar(255)" json:"avatar,omitempty"`
+	OpenId    string    `xorm:"varchar(100)" json:"openId,omitempty"`
 }
 
 func AddUser(user *User) (affected int64, err error) {
@@ -34,5 +36,15 @@ func AddUser(user *User) (affected int64, err error) {
 	if err != nil {
 		zap.L().Error("insert user failed", zap.Error(err))
 	}
+	return
+}
+
+func GetUsers() (users []*User, err error) {
+	users = make([]*User, 0)
+	err = Engine.Cols("username", "email", "created_at", "phone").Find(&users)
+	if err != nil {
+		return nil, err
+	}
+
 	return
 }

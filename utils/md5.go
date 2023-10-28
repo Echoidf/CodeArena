@@ -25,3 +25,9 @@ func RandomString(n int) string {
 	}
 	return sb.String()
 }
+
+func Md5Encode(s string) string {
+	h := md5.New()
+	h.Write([]byte(s))
+	return hex.EncodeToString(h.Sum(nil))
+}

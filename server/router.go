@@ -42,6 +42,9 @@ func Start() {
 
 	// 以下接口需要token认证
 	r.Use(middware.Authorize)
+	r.GET("/user/list", api.GetUserList)
+	r.POST("/user/update", api.UpdateUser)
+	r.GET("/user/info", api.GetUserInfo)
 
 	log.Fatal(e.Start(fmt.Sprintf(":%d", conf.V.GetInt("server.port"))))
 }

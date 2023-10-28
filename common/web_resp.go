@@ -13,6 +13,7 @@ func (e *SysError) Error() string {
 var (
 	InvalidInputError = &SysError{Code: 1001, Message: "please check the input data"}
 	InsertError       = &SysError{Code: 1002, Message: "Insert error"}
+	QueryNothingError = &SysError{Code: 1003, Message: "the query result is null"}
 )
 
 func (e *SysError) WithError(err error) *SysError {
