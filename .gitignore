@@ -1,5 +1,4 @@
-*.key
-*.pem
-log/*
-gen
-conf/config.toml
+bin
+.DS_Store
+.idea
+log

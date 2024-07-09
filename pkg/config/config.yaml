@@ -1,0 +1,24 @@
+environment: development
+
+http_port: 10000
+grpc_port: 10001
+auth_secret: "KkUlhrOa6N/MMbFtWul+sWx16Oa1p35YBZEcAujn6B8="
+
+mongodb_uri: "mongodb+srv://codearena:zql285637@cluster0.jaj2oh9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
+x_api_key: "1ff0431e59538c5b6bbae769c6d90ec7e647d37c3d7646604072b27bff7e0a87fc8362f53a59533ea5cab6657174c571"
+translate_server: "xf_yun"
+smms_token: "dm1aZpNLeilrFLISdkmzXOCLvYL6pR5j"
+
+aliyun:
+  access_key_id: "LTAI5t8fVhydayenEqVUxFLA"
+  access_key_secret: "dPq2PVwbjsFVjRnPbTjMCZCVhjbFoa"
+  bucket_name: "zql-lovestory"
+  endpoint: "oss-cn-beijing.aliyuncs.com"
+
+logger:
+  level: "debug"
+  log_path: "log/codearena.log"
+  max_size: 10
+  max_age: 30
+  max_backups: 10
