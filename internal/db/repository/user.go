@@ -9,21 +9,20 @@ import (
 	"gorm.io/gorm"
 )
 
-func init() {
-	Migrate()
+type User struct {
+	ID        uint      `json:"id"`
+	Phone     string    `json:"phone" gorm:"type:varchar(11);not null;comment:手机号"`
+	Username  string    `json:"username" gorm:"type:varchar(32);not null;comment:用户名"`
+	Password  string    `json:"password" gorm:"type:varchar(128);not null;comment:密码"`
+	Gender    uint8     `json:"gender" gorm:"type:tinyint(1);not null;comment:性别 1-男 2-女"`
+	Avatar    string    `json:"avatar" gorm:"type:varchar(255);not null;comment:头像"`
+	OpenId    string    `json:"openId" gorm:"type:varchar(128);not null;comment:微信openid"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
-type User struct {
-	ID         uint      `json:"id"`
-	Email      string    `json:"email" gorm:"type:varchar(128);not null;comment:邮箱"`
-	Username   string    `json:"username" gorm:"type:varchar(32);not null;comment:用户名"`
-	Password   string    `json:"password" gorm:"type:varchar(128);not null;comment:密码"`
-	Gender     string    `json:"gender" gorm:"type:char(8);not null;comment:性别"`
-	ProfilePic string    `json:"profilePic" gorm:"type:varchar(255);not null;comment:头像"`
-	Actived    byte      `json:"actived" gorm:"comment:是否激活"`
-	ActiveCode string    `json:"-" gorm:"type:varchar(32);default:'';comment:激活码"`
-	CreatedAt  time.Time `json:"createdAt"`
-	UpdatedAt  time.Time `json:"updatedAt"`
+func (User) TableName() string {
+	return "sys_user"
 }
 
 func InsertOneUser(user *User) error {
@@ -75,23 +74,6 @@ func FindByUserID(userId uint) (*User, error) {
 	err := mysql.DBClient.Where("id = ?", userId).First(&user).Error
 	if err != nil {
 		zap.L().Error("find user by user id failed", zap.Error(err))
-		return nil, err
-	}
-	return &user, nil
-}
-
-func ActivateAccount(username, code string) (*User, error) {
-	var user User
-	err := mysql.DBClient.Where("username = ? AND active_code = ?", username, code).First(&user).Error
-	if err != nil {
-		zap.L().Error("activate account failed", zap.Error(err))
-		return nil, err
-	}
-	user.Actived = 1
-	user.ActiveCode = ""
-	err = mysql.DBClient.Save(&user).Error
-	if err != nil {
-		zap.L().Error("activate account failed", zap.Error(err))
 		return nil, err
 	}
 	return &user, nil

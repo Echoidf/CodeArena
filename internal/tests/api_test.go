@@ -8,11 +8,10 @@ import (
 
 func TestInsertOne(t *testing.T) {
 	var user = &repository.User{
-		Username:   "zql3",
-		Email:      "124567890@qq.com",
-		Password:   "12345",
-		Gender:     "12345",
-		ProfilePic: "https://avatar.iran.liara.run/public/boy?username=zql",
+		Username: "zql3",
+		Password: "12345",
+		Gender:   1,
+		Avatar:   "https://avatar.iran.liara.run/public/boy?username=zql",
 	}
 	err := repository.InsertOneUser(user)
 	if err != nil {

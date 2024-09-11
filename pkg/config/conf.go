@@ -25,32 +25,46 @@ var AuthIgnoreMethods = []string{
 }
 
 type Schema struct {
-	HttpPort        int    `yaml:"http_port"`
-	Environment     string `yaml:"environment"`
-	GrpcPort        int    `yaml:"grpc_port"`
-	AuthSecret      string `yaml:"auth_secret"`
-	MongoDBUri      string `yaml:"mongodb_uri"`
-	XAPIKey         string `yaml:"x_api_key"`
-	TranslateServer string `yaml:"translate_server"`
-	SMMSToken       string `yaml:"smms_token"`
-	Aliyun          Aliyun `yaml:"aliyun"`
-	Logger          Logger `yaml:"logger"`
+	HttpPort    int          `yaml:"http_port"`
+	Environment string       `yaml:"environment"`
+	GrpcPort    int          `yaml:"grpc_port"`
+	AuthSecret  string       `yaml:"auth_secret"`
+	MongoDBUri  string       `yaml:"mongodb_uri"`
+	Aliyun      Aliyun       `yaml:"aliyun"`
+	Logger      Logger       `yaml:"logger"`
+	Wechat      WechatConfig `yaml:"wechat"`
+	Mysql       MysqlConfig  `yaml:"mysql"`
 }
 
-type Aliyun struct {
-	AccessKeyID     string `yaml:"access_key_id"`
-	AccessKeySecret string `yaml:"access_key_secret"`
-	Endpoint        string `yaml:"endpoint"`
-	BucketName      string `yaml:"bucket_name"`
-}
+type (
+	Aliyun struct {
+		AccessKeyID     string `yaml:"access_key_id"`
+		AccessKeySecret string `yaml:"access_key_secret"`
+		Endpoint        string `yaml:"endpoint"`
+		BucketName      string `yaml:"bucket_name"`
+	}
 
-type Logger struct {
-	Level      string `yaml:"level"`
-	LogPath    string `yaml:"log_path"`
-	MaxSize    int    `yaml:"max_size"`
-	MaxAge     int    `yaml:"max_age"`
-	MaxBackups int    `yaml:"max_backups"`
-}
+	Logger struct {
+		Level      string `yaml:"level"`
+		LogPath    string `yaml:"log_path"`
+		MaxSize    int    `yaml:"max_size"`
+		MaxAge     int    `yaml:"max_age"`
+		MaxBackups int    `yaml:"max_backups"`
+	}
+
+	MysqlConfig struct {
+		Host     string `yaml:"host"`
+		Port     int    `yaml:"port"`
+		Username string `yaml:"username"`
+		Password string `yaml:"password"`
+		Database string `yaml:"database"`
+	}
+
+	WechatConfig struct {
+		AppID     string `yaml:"app_id"`
+		AppSecret string `yaml:"app_secret"`
+	}
+)
 
 var (
 	cfg  Schema

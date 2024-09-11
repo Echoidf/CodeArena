@@ -19,7 +19,7 @@ WORKDIR /app
 
 # 复制可执行文件
 COPY --from=builder /build/codearena /app/
-COPY --from=builder /build/pkg/config /app/pkg/config/
+COPY --from=builder /build/pkg/config/config.yaml /app/pkg/config/config.yaml
 
 EXPOSE 10000
 

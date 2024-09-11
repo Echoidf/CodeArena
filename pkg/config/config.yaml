@@ -6,9 +6,16 @@ auth_secret: "KkUlhrOa6N/MMbFtWul+sWx16Oa1p35YBZEcAujn6B8="
 
 mongodb_uri: "mongodb+srv://codearena:zql285637@cluster0.jaj2oh9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
-x_api_key: "1ff0431e59538c5b6bbae769c6d90ec7e647d37c3d7646604072b27bff7e0a87fc8362f53a59533ea5cab6657174c571"
-translate_server: "xf_yun"
-smms_token: "dm1aZpNLeilrFLISdkmzXOCLvYL6pR5j"
+mysql:
+  host: "116.62.204.146"
+  port: 3306
+  username: "memory"
+  password: "WcD7TpjS2yAFzeFB"
+  database: "memory"
+
+wechat:
+  app_id: "wx0c65a63c4bb9b5a8"
+  app_secret: "8e03720e3bfb8fefc249642c94f234cc"
 
 aliyun:
   access_key_id: "LTAI5t8fVhydayenEqVUxFLA"

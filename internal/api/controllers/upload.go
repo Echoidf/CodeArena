@@ -7,32 +7,29 @@ import (
 	"codearena/plugins/fileupload/aliyun"
 	"path/filepath"
 
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 	"go.uber.org/zap"
 )
 
-func UploadFile(c *gin.Context) {
+func UploadFile(c *fiber.Ctx) error {
 	img, err := c.FormFile("file")
 
 	if err != nil {
-		response.Error(c, 500, err.Error())
-		return
+		return response.BadRequest(c, err)
 	}
 
 	// Upload the file
 	imgBytes, err := utils.MultiPartFileHeaderToBytes(img)
 	if err != nil {
-		response.Error(c, 500, err.Error())
-		return
+		return response.Error(c, err)
 	}
 
 	fPath := filepath.Join("imgs", img.Filename)
 	err = aliyun.Bucket.PutObject(fPath, bytes.NewReader(imgBytes))
 	if err != nil {
 		zap.L().Error("upload file failed", zap.Error(err))
-		response.Error(c, 500, "upload file failed "+err.Error())
-		return
+		return response.Error(c, err)
 	}
 
-	response.Success(c, aliyun.GetObjectUrl(fPath))
+	return response.Success(c, aliyun.GetObjectUrl(fPath))
 }

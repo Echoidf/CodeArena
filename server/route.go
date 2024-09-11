@@ -5,71 +5,55 @@ import (
 	"codearena/embeds"
 	"codearena/internal/api/controllers"
 	"codearena/pkg/config"
-	"codearena/pkg/middleware"
-	"codearena/pkg/response"
+	"codearena/pkg/middware"
 	"fmt"
-	"net/http"
+	"os"
 
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
-var r *gin.Engine
+var app *fiber.App
+var logFile *os.File
 
 func init() {
-	middleware.InitLogger(&config.GetConfig().Logger)
+	app = fiber.New()
+	var err error
+	logFile, err = os.OpenFile("./log/codearena.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("error opening file: %v", err)
+	}
+	app.Use(logger.New(logger.Config{
+		Format:     "${time}-${status}-${latency}-${method}-${path}\n",
+		TimeFormat: "2006-01-02 15:04:05",
+		TimeZone:   "Local",
+		Output:     logFile,
+	}))
+	app.Use(recover.New(), cors.New())
 
-	r = gin.Default()
-
-	r.Use(middleware.GinLogger(), middleware.GinRecovery(true), GinMiddleware())
-
-	r.Any("/health", func(c *gin.Context) {
-		response.Success(c, "OK")
+	app.All("/health", func(c *fiber.Ctx) error {
+		return c.SendString("OK")
 	})
 
-	setupAuthRoutes(r)
-	setupUserRoutes(r)
-	setupFileRoutes(r)
+	apiRouter := app.Group("/api")
+	apiRouter.Use(middware.JWTMiddleware())
+	setupFileRoutes(apiRouter)
+	setupUserRoutes(apiRouter)
 }
 
-func setupFileRoutes(router *gin.Engine) {
-	fileRoutes := router.Group("/api/file")
-	fileRoutes.Use(middleware.JWTAuth())
-	fileRoutes.POST("/upload", controllers.UploadFile)
+func setupFileRoutes(router fiber.Router) {
+	router.Post("/file/upload", controllers.UploadFile)
 }
 
-func setupAuthRoutes(router *gin.Engine) {
-	authRoutes := router.Group("/api/auth")
-	authRoutes.POST("/login", controllers.Login)
-	authRoutes.POST("/signup", controllers.Signup)
-	authRoutes.POST("/logout", controllers.Logout)
-	authRoutes.POST("/activate", controllers.ActivateAccount)
-}
-
-func setupUserRoutes(router *gin.Engine) {
-	userRoutes := router.Group("/api/user")
-	userRoutes.Use(middleware.JWTAuth())
-	userRoutes.GET("/list", controllers.GetUsers)
-}
-
-func GinMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Accept, Authorization, Content-Type, Content-Length, X-CSRF-Token, Token, session, Origin, Host, Connection, Accept-Encoding, Accept-Language, X-Requested-With")
-
-		if c.Request.Method == http.MethodOptions {
-			c.AbortWithStatus(http.StatusNoContent)
-			return
-		}
-
-		c.Request.Header.Del("Origin")
-
-		c.Next()
-	}
+func setupUserRoutes(router fiber.Router) {
+	router.Post("/user/login", controllers.Login)
 }
 
 func Run() {
+	defer logFile.Close()
 	fmt.Println(string(embeds.ReadEmbeds(consts.BANNER)))
-	_ = r.Run(fmt.Sprintf(":%d", config.GetConfig().HttpPort))
+	app.Listen(fmt.Sprintf(":%d", config.GetConfig().HttpPort))
 }
