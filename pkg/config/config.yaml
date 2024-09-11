@@ -4,22 +4,22 @@ http_port: 10000
 grpc_port: 10001
 auth_secret: "KkUlhrOa6N/MMbFtWul+sWx16Oa1p35YBZEcAujn6B8="
 
-mongodb_uri: "mongodb+srv://codearena:zql285637@cluster0.jaj2oh9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+mongodb_uri: "mongodb+srv://xxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 mysql:
-  host: "116.62.204.146"
+  host: "127.0.0.1"
   port: 3306
-  username: "memory"
-  password: "WcD7TpjS2yAFzeFB"
-  database: "memory"
+  username: "codearena"
+  password: "123456"
+  database: "codearena"
 
 wechat:
-  app_id: "wx0c65a63c4bb9b5a8"
-  app_secret: "8e03720e3bfb8fefc249642c94f234cc"
+  app_id: "wxx"
+  app_secret: "xx"
 
 aliyun:
-  access_key_id: "LTAI5t8fVhydayenEqVUxFLA"
-  access_key_secret: "dPq2PVwbjsFVjRnPbTjMCZCVhjbFoa"
+  access_key_id: "xx"
+  access_key_secret: "xx"
   bucket_name: "zql-lovestory"
   endpoint: "oss-cn-beijing.aliyuncs.com"
 
