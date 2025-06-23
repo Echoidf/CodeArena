@@ -4,12 +4,12 @@ http_port: 10000
 grpc_port: 10001
 auth_secret: "KkUlhrOa6N/MMbFtWul+sWx16Oa1p35YBZEcAujn6B8="
 
-mongodb_uri: "mongodb+srv://content-assistant:zql285637@cluster0.jaj2oh9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+mongodb_uri: "mongodb+srv://content-assistant:127.0.0.1@cluster0.jaj2oh9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 aliyun:
-  access_key_id: "LTAI5t8fVhydayenEqVUxFLA"
-  access_key_secret: "dPq2PVwbjsFVjRnPbTjMCZCVhjbFoa"
-  bucket_name: "zql-lovestory"
+  access_key_id: ""
+  access_key_secret: ""
+  bucket_name: ""
   endpoint: "oss-cn-beijing.aliyuncs.com"
 
 logger:
