@@ -1,0 +1,20 @@
+environment: development
+
+http_port: 10000
+grpc_port: 10001
+auth_secret: "KkUlhrOa6N/MMbFtWul+sWx16Oa1p35YBZEcAujn6B8="
+
+mongodb_uri: "mongodb+srv://content-assistant:zql285637@cluster0.jaj2oh9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
+aliyun:
+  access_key_id: "LTAI5t8fVhydayenEqVUxFLA"
+  access_key_secret: "dPq2PVwbjsFVjRnPbTjMCZCVhjbFoa"
+  bucket_name: "zql-lovestory"
+  endpoint: "oss-cn-beijing.aliyuncs.com"
+
+logger:
+  level: "debug"
+  log_path: "log/content-assistant.log"
+  max_size: 20
+  max_age: 10
+  max_backups: 10
